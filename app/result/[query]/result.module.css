@@ -1,0 +1,122 @@
+.show {
+  min-height: 70vh;
+  margin: auto;
+}
+
+.show p {
+  margin-top: 1rem;
+}
+
+.banner {
+  min-height: 25vh;
+  position: relative;
+}
+
+.background {
+  height: 100%;
+  max-height: 450px;
+  width: 100%;
+  opacity: 0.5;
+}
+
+.portret {
+  position: absolute;
+  width: 30%;
+  min-width: 80px;
+  max-width: 250px;
+  min-height: 120px;
+  height: 90%;
+  top: 50%;
+  transform: translate(-10%, -50%);
+  left: 5%;
+}
+
+.showSeasons {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  left: 0;
+  min-height: 100vh;
+  top: 0;
+  z-index: 3;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.goBackButton {
+  padding: 0.3rem;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  border: none;
+}
+
+.goBackButton:hover {
+  cursor: pointer;
+  background-color: black;
+  transition: all 0.3s ease-in-out;
+}
+
+.season {
+  width: 80%;
+  max-width: 300px;
+  position: relative;
+}
+
+.seasonsWrapper {
+  display: grid;
+  place-items: center;
+  row-gap: 3rem;
+  padding: 2rem 0;
+}
+
+.details {
+  position: absolute;
+  top: 35%;
+  left: 10px;
+  font-size: small;
+  width: 90%;
+}
+
+.seasonPoster {
+  width: 100%;
+  filter: brightness(0.5);
+  height: auto;
+}
+
+.streaming {
+  background-color: gainsboro;
+  height: 50px;
+  width: 55%;
+  max-width: 250px;
+  padding: 0.4rem;
+  text-transform: uppercase;
+  color: black;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  border: none;
+  margin-top: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.streaming p {
+  margin-top: 0;
+}
+
+.streaming img {
+  width: 40px;
+  border-radius: 10px;
+  height: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .seasonsWrapper {
+    grid-template-columns: auto auto;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .seasonsWrapper {
+    grid-template-columns: auto auto auto;
+  }
+}

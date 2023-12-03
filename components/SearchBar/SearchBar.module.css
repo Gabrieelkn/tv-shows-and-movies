@@ -1,0 +1,42 @@
+.searchBar {
+  display: flex;
+  gap: 0.5rem;
+  width: 95%;
+  max-width: 500px;
+  position: relative;
+}
+
+.searchBar input {
+  padding: 0.8rem;
+  width: 80%;
+  border-radius: 6px;
+  border: none;
+  color: black;
+}
+
+.searchBar input:focus {
+  border: 1px solid white;
+  color: white;
+}
+
+.searchButton {
+  width: 80px;
+  border-radius: 6px;
+  border: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.searchButton:hover {
+  background-color: white;
+  color: black;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.error {
+  position: absolute;
+  top: 100%;
+  z-index: 2;
+  color: red;
+  transition: all 0.5s ease-in-out;
+}
