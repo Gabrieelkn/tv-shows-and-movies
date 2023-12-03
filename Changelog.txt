@@ -1,0 +1,7 @@
+# Changelog
+
+## [1.1.0] - 2023-12-04
+- added cast
+
+## [1.0.0] - 2023-12-03
+- Initial release
