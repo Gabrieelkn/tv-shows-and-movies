@@ -11,12 +11,15 @@ export default function Show({ params }) {
   const [streaming, setStreaming] = useState(null);
   const [details, setDetails] = useState(null);
   const [showSeasons, setShowSeasons] = useState(false);
+  const [cast, setCast] = useState(null);
+  const [showAllRoles, setShowAllRoles] = useState(false);
+  const rolesToShow = showAllRoles
+    ? cast?.cast.map((actor) => actor)
+    : cast?.cast.map((actor) => actor).slice(0, 8);
   const [country, setCountry] = useState(null);
   const [loading, setLoading] = useState(true);
   const id = params.query;
   const path = usePathname();
-
-  console.log("det", details);
 
   useEffect(() => {
     if (path.includes("result") && country && shows) {
@@ -46,7 +49,25 @@ export default function Show({ params }) {
             );
             const detailsData = await detailsRes.json();
             if (detailsData) {
-              setDetails(detailsData.data);
+              setDetails(detailsData.data.cast);
+            } else {
+              throw new Error();
+            }
+          } catch (error) {
+            setLoading(false);
+            throw new Error();
+          }
+        }
+        async function fetchCast() {
+          try {
+            const castRes = await fetch(
+              `/api/getCast?query=${id}&&type=${show.media_type}&&credits=${
+                show.media_type === "movie" ? "credits" : "aggregate_credits"
+              }`
+            );
+            const castData = await castRes.json();
+            if (castData) {
+              setCast(castData.data);
             } else {
               throw new Error();
             }
@@ -57,6 +78,7 @@ export default function Show({ params }) {
         }
         fetchData();
         fetchDetails();
+        fetchCast();
         setLoading(false);
       }
     }
@@ -122,14 +144,16 @@ export default function Show({ params }) {
                     </h1>
                     {streaming && <StreamingProvider streaming={streaming} />}
                     {details && (
-                      <p>
-                        Number of seasons: {details.number_of_seasons} -{" "}
-                        {details.number_of_episodes} episodes
-                      </p>
+                      <>
+                        <p>
+                          Number of seasons: {details.number_of_seasons} -{" "}
+                          {details.number_of_episodes} episodes
+                        </p>
+                        <button onClick={() => setShowSeasons(true)}>
+                          See seasons
+                        </button>
+                      </>
                     )}
-                    <button onClick={() => setShowSeasons(true)}>
-                      See seasons
-                    </button>
                     {showSeasons && (
                       <Seasons
                         details={details}
@@ -137,6 +161,12 @@ export default function Show({ params }) {
                       />
                     )}
                     <p>{show.overview}</p>
+                    <Cast
+                      cast={cast}
+                      rolesToShow={rolesToShow}
+                      showAllRoles={showAllRoles}
+                      setShowAllRoles={setShowAllRoles}
+                    />
                   </div>
                 );
               })}
@@ -197,5 +227,52 @@ function StreamingProvider({ streaming }) {
         );
       })}
     </div>
+  );
+}
+
+function Cast({ cast, rolesToShow, showAllRoles, setShowAllRoles }) {
+  return (
+    <>
+      <h2 className={styles.castHeader}>Cast:</h2>
+      <div className={styles.cast}>
+        {rolesToShow &&
+          cast &&
+          rolesToShow.map((actor) => {
+            return (
+              <div className={styles.actor} key={actor.id}>
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500/${actor.profile_path}`}
+                  alt="profile"
+                  width={400}
+                  height={400}
+                />
+                <b>{actor.name}</b>
+                {actor && actor.roles ? (
+                  actor.roles.map((role) => (
+                    <div key={role.credit_id}>
+                      <p>{role.character}</p>
+                      <p className={styles.actorEpisodes}>
+                        {role.episode_count} episodes
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <div>
+                    <p>{actor.character}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        <div className={styles.buttonWrapper}>
+          <button
+            onClick={() => setShowAllRoles(!showAllRoles)}
+            className={styles.showAllCastButton}
+          >
+            {showAllRoles ? "See less" : "See more"}
+          </button>
+        </div>
+      </div>
+    </>
   );
 }

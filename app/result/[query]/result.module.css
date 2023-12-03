@@ -86,8 +86,8 @@
 .streaming {
   background-color: gainsboro;
   height: 50px;
-  width: 55%;
-  max-width: 250px;
+  width: 60%;
+  max-width: 300px;
   padding: 0.4rem;
   text-transform: uppercase;
   color: black;
@@ -107,6 +107,65 @@
 .streaming img {
   width: 40px;
   border-radius: 10px;
+  height: auto;
+}
+
+.castHeader {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.cast {
+  display: flex;
+  flex-flow: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actor {
+  width: 130px;
+  height: 260px;
+  background-color: white;
+  color: black;
+  font-size: smaller;
+}
+
+.actor p,
+.actor b {
+  padding-left: 0.3rem;
+  margin: 0;
+  width: 100%;
+}
+
+.actorEpisodes {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.buttonWrapper {
+  flex-basis: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.showAllCastButton {
+  padding: 0.7rem;
+  width: 200px;
+  font-size: medium;
+  margin-top: 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  border: none;
+}
+
+.showAllCastButton:hover {
+  cursor: pointer;
+  background-color: black;
+  transition: all 0.3s ease-in-out;
+}
+
+.actor img {
+  width: 100%;
   height: auto;
 }
 
