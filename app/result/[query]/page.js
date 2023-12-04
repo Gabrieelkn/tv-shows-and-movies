@@ -21,6 +21,8 @@ export default function Show({ params }) {
   const id = params.query;
   const path = usePathname();
 
+  console.log(shows);
+
   useEffect(() => {
     if (path.includes("result") && country && shows) {
       const show = shows.find((a) => a.id == id);
@@ -49,7 +51,7 @@ export default function Show({ params }) {
             );
             const detailsData = await detailsRes.json();
             if (detailsData) {
-              setDetails(detailsData.data.cast);
+              setDetails(detailsData.data);
             } else {
               throw new Error();
             }
@@ -143,17 +145,20 @@ export default function Show({ params }) {
                       )
                     </h1>
                     {streaming && <StreamingProvider streaming={streaming} />}
-                    {details && (
+                    {details && show.media_type == "tv" ? (
                       <>
                         <p>
                           Number of seasons: {details.number_of_seasons} -{" "}
                           {details.number_of_episodes} episodes
                         </p>
-                        <button onClick={() => setShowSeasons(true)}>
+                        <button
+                          className={styles.seeSeasonsButton}
+                          onClick={() => setShowSeasons(true)}
+                        >
                           See seasons
                         </button>
                       </>
-                    )}
+                    ) : null}
                     {showSeasons && (
                       <Seasons
                         details={details}

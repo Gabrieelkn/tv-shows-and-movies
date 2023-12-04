@@ -1,6 +1,7 @@
 .show {
   min-height: 70vh;
   margin: auto;
+  margin-top: 2rem;
 }
 
 .show p {
@@ -54,6 +55,10 @@
   cursor: pointer;
   background-color: black;
   transition: all 0.3s ease-in-out;
+}
+
+.seeSeasonsButton:hover {
+  cursor: pointer;
 }
 
 .season {
@@ -126,9 +131,14 @@
 .actor {
   width: 130px;
   height: 260px;
+  overflow: scroll;
   background-color: white;
   color: black;
   font-size: smaller;
+}
+
+.actor::-webkit-scrollbar {
+  display: none;
 }
 
 .actor p,

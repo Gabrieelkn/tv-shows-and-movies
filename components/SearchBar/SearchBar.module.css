@@ -4,12 +4,13 @@
   width: 95%;
   max-width: 500px;
   position: relative;
+  overflow: visible;
 }
 
 .searchBar input {
   padding: 0.8rem;
-  width: 80%;
-  border-radius: 6px;
+  width: 100%;
+  border-radius: 50px;
   border: none;
   color: black;
 }
@@ -21,7 +22,11 @@
 
 .searchButton {
   width: 80px;
-  border-radius: 6px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  background-color: transparent;
+  border-radius: 50px;
   border: none;
   transition: all 0.5s ease-in-out;
 }
@@ -33,9 +38,36 @@
   cursor: pointer;
 }
 
+.suggestions {
+  display: none;
+  width: 100%;
+  margin-top: 1rem;
+  max-width: 500px;
+  background-color: #3b3b3b;
+  z-index: 99;
+  padding: 0.8rem;
+  position: absolute;
+  top: 80%;
+  line-height: 2;
+}
+
+.suggestions button {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.suggestions button:hover {
+  cursor: pointer;
+}
+
+.searchBar input:focus ~ .suggestions {
+  display: block;
+}
+
 .error {
   position: absolute;
   top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0%);
   z-index: 2;
   color: red;
   transition: all 0.5s ease-in-out;

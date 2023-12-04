@@ -3,13 +3,17 @@ import styles from "./Movies.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useShows } from "@/context/MovieProvider";
+import Loading from "@/app/result/loading";
 
 export default function Movies() {
-  const { shows } = useShows();
-  console.log("shows", shows);
+  const { shows, loading } = useShows();
+
   return (
     <div className={styles.movies}>
-      {shows &&
+      {loading ? (
+        <Loading />
+      ) : (
+        shows &&
         shows.length > 0 &&
         shows
           .filter(
@@ -52,7 +56,8 @@ export default function Movies() {
                   ))}
               </Link>
             );
-          })}
+          })
+      )}
     </div>
   );
 }
