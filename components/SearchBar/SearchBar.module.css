@@ -13,6 +13,7 @@
   border-radius: 50px;
   border: none;
   color: black;
+  background-color: gray;
 }
 
 .searchBar input:focus {
@@ -29,6 +30,7 @@
   border-radius: 50px;
   border: none;
   transition: all 0.5s ease-in-out;
+  color: white;
 }
 
 .searchButton:hover {
