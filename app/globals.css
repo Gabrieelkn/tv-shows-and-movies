@@ -112,16 +112,20 @@ body {
 }
 
 .header {
-  width: 100%;
-  display: grid;
-  place-items: center;
+  width: 95%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 10vh;
   position: relative;
+  margin: auto;
+  margin-bottom: 5rem;
 }
 
 a {
   color: inherit;
+  display: grid;
   text-decoration: none;
 }
 

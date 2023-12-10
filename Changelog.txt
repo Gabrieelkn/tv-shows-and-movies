@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.0.0] - 2023-12-10
+- added logo
+- added: close seasons modal when clicks outside
+- added movies that play in theaters in Romania
+
 ## [2.0.0] - 2023-12-04
 - improve search bar
 - show search suggestions when typing in search bar

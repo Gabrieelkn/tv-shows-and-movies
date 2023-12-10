@@ -1,6 +1,5 @@
 .movies {
   display: grid;
-  row-gap: 0.5rem;
   place-items: center;
   margin-top: 3rem;
   margin-bottom: 5rem;
@@ -10,7 +9,7 @@
 
 .movieBox {
   height: 300px;
-  width: 150px;
+  width: 200px;
   position: relative;
   color: white;
   font-size: small;
@@ -25,17 +24,14 @@
 
 .movieBox img {
   width: 100%;
-  height: 90%;
+  height: 80%;
 }
 
 @media screen and (min-width: 768px) {
   .movies {
     grid-template-columns: repeat(3, auto);
     row-gap: 2rem;
-  }
-  .movieBox {
-    height: 300px;
-    width: 180px;
+    justify-content: space-between;
   }
 }
 @media screen and (min-width: 1024px) {

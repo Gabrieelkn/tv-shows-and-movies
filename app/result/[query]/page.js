@@ -2,7 +2,7 @@
 import styles from "./result.module.css";
 import { useShows } from "@/context/MovieProvider";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Loading from "../loading";
 
@@ -15,14 +15,34 @@ export default function Show({ params }) {
   const [showAllRoles, setShowAllRoles] = useState(false);
   const rolesToShow = showAllRoles
     ? cast?.cast.map((actor) => actor)
-    : cast?.cast.map((actor) => actor).slice(0, 8);
+    : cast?.cast.map((actor) => actor).slice(0, 7);
   const [country, setCountry] = useState(null);
   const [loading, setLoading] = useState(true);
   const id = params.query;
   const path = usePathname();
+  const seasonsRef = useRef();
 
-  console.log(shows);
+  //fetch user country code
+  useEffect(() => {
+    const logUserCountry = async () => {
+      try {
+        const response = await fetch("https://geolocation-db.com/json/");
+        const data = await response.json();
 
+        if (data.country_code) {
+          setCountry(data.country_code);
+        } else {
+          console.error("Unable to fetch user country code");
+        }
+      } catch (error) {
+        console.error("Error fetching user country code:", error);
+      }
+    };
+
+    logUserCountry();
+  }, [streaming]);
+
+  //fetch available streaming platforms based on country
   useEffect(() => {
     if (path.includes("result") && country && shows) {
       const show = shows.find((a) => a.id == id);
@@ -86,24 +106,20 @@ export default function Show({ params }) {
     }
   }, [country, id, path, shows]);
 
+  //close seasons modal when click outside
   useEffect(() => {
-    const logUserCountry = async () => {
-      try {
-        const response = await fetch("https://geolocation-db.com/json/");
-        const data = await response.json();
-
-        if (data.country_code) {
-          setCountry(data.country_code);
-        } else {
-          console.error("Unable to fetch user country code");
-        }
-      } catch (error) {
-        console.error("Error fetching user country code:", error);
+    const handleOutsideClick = (event) => {
+      if (seasonsRef.current && !seasonsRef.current.contains(event.target)) {
+        setShowSeasons(false);
       }
     };
 
-    logUserCountry();
-  }, [streaming]);
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <>
@@ -163,6 +179,7 @@ export default function Show({ params }) {
                       <Seasons
                         details={details}
                         setShowSeasons={setShowSeasons}
+                        seasonsRef={seasonsRef}
                       />
                     )}
                     <p>{show.overview}</p>
@@ -181,9 +198,9 @@ export default function Show({ params }) {
   );
 }
 
-function Seasons({ details, setShowSeasons }) {
+function Seasons({ details, setShowSeasons, seasonsRef }) {
   return (
-    <div className={styles.showSeasons}>
+    <div ref={seasonsRef} className={styles.showSeasons}>
       <button
         className={styles.goBackButton}
         onClick={() => setShowSeasons(false)}

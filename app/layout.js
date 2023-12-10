@@ -1,7 +1,10 @@
 import { Roboto } from "next/font/google";
+import Image from "next/image";
 import "./globals.css";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import { ShowsProvider } from "@/context/MovieProvider";
+import Logo from "@/public/logo.svg";
+import Link from "next/link";
 
 const roboto = Roboto({ subsets: ["latin"], weight: "500" });
 
@@ -16,6 +19,9 @@ export default function RootLayout({ children }) {
       <body className={roboto.className}>
         <ShowsProvider>
           <header className="header">
+            <Link href="/">
+              <Image src={Logo} alt="logo" width="50" height="50" />
+            </Link>
             <SearchBar />
           </header>
           <div className="container">{children}</div>

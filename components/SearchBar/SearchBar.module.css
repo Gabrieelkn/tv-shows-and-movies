@@ -1,8 +1,7 @@
 .searchBar {
   display: flex;
   gap: 0.5rem;
-  width: 95%;
-  max-width: 500px;
+  width: 85%;
   position: relative;
   overflow: visible;
 }
@@ -44,7 +43,6 @@
   display: none;
   width: 100%;
   margin-top: 1rem;
-  max-width: 500px;
   background-color: #3b3b3b;
   z-index: 99;
   padding: 0.8rem;
