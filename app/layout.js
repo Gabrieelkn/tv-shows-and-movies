@@ -5,6 +5,7 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import { ShowsProvider } from "@/context/MovieProvider";
 import Logo from "@/public/logo.svg";
 import Link from "next/link";
+import { Analytics } from "../node_modules/@vercel/analytics/dist/react";
 
 const roboto = Roboto({ subsets: ["latin"], weight: "500" });
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
           </header>
           <div className="container">{children}</div>
         </ShowsProvider>
+        <Analytics />
       </body>
     </html>
   );

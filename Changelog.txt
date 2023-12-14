@@ -1,5 +1,8 @@
 # Changelog
 
+## [3.1.0] - 2023-12-14
+- fixed a bug where if you click on a movie card without typing in search bar the result page won't load because 'shows' array will be empty
+
 ## [3.0.0] - 2023-12-10
 - added logo
 - added: close seasons modal when clicks outside

@@ -4,16 +4,8 @@ import { createContext, useContext, useState } from "react";
 const ShowsContext = createContext();
 
 export function ShowsProvider({ children }) {
-  const [shows, setShows] = useState(
-    (typeof localStorage !== "undefined" &&
-      JSON.parse(localStorage.getItem("shows"))) ||
-      []
-  );
-  const [history, setHistory] = useState(
-    (typeof localStorage !== "undefined" &&
-      JSON.parse(localStorage.getItem("history"))) ||
-      []
-  );
+  const [shows, setShows] = useState([]);
+  const [history, setHistory] = useState([]);
   const [query, setQuery] = useState("");
 
   return (

@@ -6,9 +6,15 @@ import { useShows } from "@/context/MovieProvider";
 
 export default function SearchBar() {
   const [error, setError] = useState(false);
-  const { query, setQuery, shows, setShows, history, setHistory } = useShows();
+  const { query, setQuery, shows, setShows } = useShows();
   const router = useRouter();
   const path = usePathname();
+
+  useEffect(() => {
+    if (!path.includes("search")) {
+      setQuery("");
+    }
+  }, [path]);
 
   useEffect(() => {
     if (query && query.length > 0) {
@@ -16,6 +22,7 @@ export default function SearchBar() {
     }
   }, [query]);
 
+  //fetch shows
   useEffect(() => {
     if (query.length > 0) {
       const fetchData = async () => {
@@ -36,9 +43,6 @@ export default function SearchBar() {
   const search = (e) => {
     e.preventDefault();
     if (query.length > 0) {
-      setHistory((prevHistory) => [...prevHistory, query]);
-      localStorage.setItem("history", JSON.stringify([...history, query]));
-      localStorage.setItem("shows", JSON.stringify(shows));
       if (shows && shows.length > 0) {
         router.push(`/search/${query}`);
       } else {

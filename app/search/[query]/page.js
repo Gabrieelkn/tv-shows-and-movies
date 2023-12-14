@@ -3,7 +3,7 @@ import styles from "./Movies.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useShows } from "@/context/MovieProvider";
-import Loading from "@/app/result/loading";
+import Loading from "@/components/loading";
 
 export default function Movies() {
   const { shows, loading } = useShows();

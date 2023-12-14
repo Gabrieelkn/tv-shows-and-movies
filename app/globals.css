@@ -137,9 +137,11 @@ a {
 
 .loaderWrapper {
   position: absolute;
-  width: 100vw;
+  width: 90vw;
   height: 90vh;
-  left: 0;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
   display: flex;
   justify-content: center;
   align-items: center;

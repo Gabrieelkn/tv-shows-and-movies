@@ -4,7 +4,7 @@ import { useShows } from "@/context/MovieProvider";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
-import Loading from "../loading";
+import Loading from "../../../components/loading";
 
 export default function Show({ params }) {
   const { shows } = useShows();
@@ -42,15 +42,23 @@ export default function Show({ params }) {
     logUserCountry();
   }, [streaming]);
 
-  //fetch available streaming platforms based on country
+  //fetch available streaming platforms based on country, fetch details, fetch cast
   useEffect(() => {
-    if (path.includes("result") && country && shows) {
+    if (
+      path.includes("result") &&
+      country &&
+      country.length > 0 &&
+      shows.length > 0
+    ) {
       const show = shows.find((a) => a.id == id);
+      const media_type = show.media_type ? show.media_type : "movie";
       if (show) {
         async function fetchData() {
           try {
             const streamingRes = await fetch(
-              `/api/getStreamingPlatform?type=${show.media_type}&&query=${id}}`
+              `/api/getStreamingPlatform?type=${
+                show.media_type ? show.media_type : "movie"
+              }&&query=${id}}`
             );
             const streamingData = await streamingRes.json();
             if (streamingData) {
@@ -67,7 +75,7 @@ export default function Show({ params }) {
         async function fetchDetails() {
           try {
             const detailsRes = await fetch(
-              `/api/getDetails?query=${id}&&type=${show.media_type}`
+              `/api/getDetails?query=${id}&&type=${media_type}`
             );
             const detailsData = await detailsRes.json();
             if (detailsData) {
@@ -83,8 +91,8 @@ export default function Show({ params }) {
         async function fetchCast() {
           try {
             const castRes = await fetch(
-              `/api/getCast?query=${id}&&type=${show.media_type}&&credits=${
-                show.media_type === "movie" ? "credits" : "aggregate_credits"
+              `/api/getCast?query=${id}&&type=${media_type}&&credits=${
+                media_type === "movie" ? "credits" : "aggregate_credits"
               }`
             );
             const castData = await castRes.json();
